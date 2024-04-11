@@ -8,7 +8,7 @@ export default function Home( ) {
   return (
       <Layout pageTitle="Home">
         <div className={styles.content}>
-          <p><strong>Sign in with GitHub to view your TodoList!</strong></p>
+          <p><strong>Sign in with GitHub to view TodoList!</strong></p>
           <br/>
           <button className="button" onClick={() => signIn()}>Sign in</button>
         </div>

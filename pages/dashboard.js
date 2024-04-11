@@ -32,8 +32,9 @@ export default function Home( { user } ) {
     setErrorMessages((errorMessages) => errorMessages.filter((_, i) => i !== index));
   }
 
-  const all_todos_list = user.todo
-  const [all_todos, setAlltodos] = useState(all_todos_list)
+
+  const [all_todos, setAlltodos] = useState("")
+  getTodo()
 
   function finishedEditing(event) {
     const index = event.target.id.replace("title", "")
@@ -85,6 +86,23 @@ export default function Home( { user } ) {
     title_el.parentNode.replaceChild(input, title_el);
     document.getElementById(index + "edit").style.display = "none"
     document.getElementById(index + "check").style.display = "none"
+  }
+
+  function getTodo(){
+    fetch("/api/get_todo", {
+      method: "GET",
+      headers: {
+        "Content-type": "application/json; charset=UTF-8"
+      }
+    })
+    .then(response => response.json())
+    .then(json => {
+      if (json.success == true){
+        setAlltodos(json.data);
+      } else {
+        addErrorMessage(json.msg)
+      }
+    });
   }
 
   function deleteTodo(title){
