@@ -32,9 +32,8 @@ export default function Home( { user } ) {
     setErrorMessages((errorMessages) => errorMessages.filter((_, i) => i !== index));
   }
 
-
-  const [all_todos, setAlltodos] = useState("")
-  getTodo()
+  const all_todos_list = getTodo();
+  const [all_todos, setAlltodos] = useState(all_todos_list)
 
   function finishedEditing(event) {
     const index = event.target.id.replace("title", "")
@@ -98,7 +97,7 @@ export default function Home( { user } ) {
     .then(response => response.json())
     .then(json => {
       if (json.success == true){
-        setAlltodos(json.data);
+        return json.data
       } else {
         addErrorMessage(json.msg)
       }
